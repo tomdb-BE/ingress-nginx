@@ -5,15 +5,10 @@ cd $(dirname $0)/..
 
 echo Running validation
 
-FIND_COMMAND="find"
-if [ "$(go env GOHOSTOS)" = "darwin" ]; then
-  FIND_COMMAND="find ."
-fi
-
-PACKAGES="$($FIND_COMMAND -name '*.go' | xargs -I{} dirname {} |  cut -f2 -d/ | sort -u | grep -Ev '(^\.$|.git|.trash-cache|vendor|bin|docs|images|examples|hack)' | sed -e 's!^!./!' -e 's!$!/...!')"
+PACKAGES="$(go list ./... | grep -v /vendor/)"
 
 echo Running: go vet
-go vet ${PACKAGES}
+go vet -mod=readonly ${PACKAGES}
 
 echo Running: go fmt
-test -z "$(go fmt ${PACKAGES} | tee /dev/stderr)"
+test -z "$(go fmt -mod=readonly ${PACKAGES} | tee /dev/stderr)"
