@@ -10,7 +10,7 @@ ENV DOCKER_BUILDX_URL_arm=https://github.com/docker/buildx/releases/download/v0.
     DOCKER_BUILDX_URL=DOCKER_BUILDX_URL_${ARCH}
 RUN wget -O - ${!DOCKER_BUILDX_URL} > /.docker/cli-plugins/docker-buildx && chmod +x /.docker/cli-plugins/docker-buildx
 
-FROM rancher/hardened-build-base:v1.16.4b7
+FROM rancher/hardened-build-base:v1.16.7b7
 ARG DAPPER_HOST_ARCH
 ARG DOCKER_USER
 ARG DOCKER_PASS
