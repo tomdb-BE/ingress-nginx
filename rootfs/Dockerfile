@@ -43,21 +43,23 @@ COPY --chown=www-data:www-data bin/${TARGETARCH}/wait-shutdown /
 # with volumes (custom templates)
 RUN bash -xeu -c ' \
   writeDirs=( \
-    /etc/ingress-controller \
-    /etc/ingress-controller/ssl \
-    /etc/ingress-controller/auth \
-    /var/log \
-    /var/log/nginx \
+  /etc/ingress-controller \
+  /etc/ingress-controller/ssl \
+  /etc/ingress-controller/auth \
+  /var/log \
+  /var/log/nginx \
   ); \
   for dir in "${writeDirs[@]}"; do \
-    mkdir -p ${dir}; \
-    chown -R www-data.www-data ${dir}; \
+  mkdir -p ${dir}; \
+  chown -R www-data.www-data ${dir}; \
   done'
 
 RUN  setcap    cap_net_bind_service=+ep /nginx-ingress-controller \
   && setcap -v cap_net_bind_service=+ep /nginx-ingress-controller \
   && setcap    cap_net_bind_service=+ep /usr/local/nginx/sbin/nginx \
-  && setcap -v cap_net_bind_service=+ep /usr/local/nginx/sbin/nginx 
+  && setcap -v cap_net_bind_service=+ep /usr/local/nginx/sbin/nginx \
+  && setcap    cap_net_bind_service=+ep /usr/bin/dumb-init \
+  && setcap -v cap_net_bind_service=+ep /usr/bin/dumb-init
 
 USER www-data
 
