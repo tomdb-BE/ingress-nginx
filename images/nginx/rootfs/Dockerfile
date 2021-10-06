@@ -60,7 +60,8 @@ RUN microdnf -y install \
       yajl \
       GeoIP \
       libmaxminddb \
-      lmdb
+      lmdb \
+      wget
 
 RUN microdnf -y install crypto-policies-scripts
 
