@@ -156,6 +156,7 @@ The following table shows a configuration option's name, type, and the default v
 |[main-snippet](#main-snippet)|string|""|
 |[http-snippet](#http-snippet)|string|""|
 |[server-snippet](#server-snippet)|string|""|
+|[stream-snippet](#stream-snippet)|string|""|
 |[location-snippet](#location-snippet)|string|""|
 |[custom-http-errors](#custom-http-errors)|[]int|[]int{}|
 |[proxy-body-size](#proxy-body-size)|string|"1m"|
@@ -172,6 +173,7 @@ The following table shows a configuration option's name, type, and the default v
 |[proxy-redirect-from](#proxy-redirect-from)|string|"off"|
 |[proxy-request-buffering](#proxy-request-buffering)|string|"on"|
 |[ssl-redirect](#ssl-redirect)|bool|"true"|
+|[force-ssl-redirect](#force-ssl-redirect)|bool|"false"|
 |[whitelist-source-range](#whitelist-source-range)|[]string|[]string{}|
 |[skip-access-log-urls](#skip-access-log-urls)|[]string|[]string{}|
 |[limit-rate](#limit-rate)|int|0|
@@ -207,6 +209,7 @@ The following table shows a configuration option's name, type, and the default v
 |[global-rate-limit-memcached-pool-size](#global-rate-limit)|int|50|
 |[global-rate-limit-status-code](#global-rate-limit)|int|429|
 |[service-upstream](#service-upstream)|bool|"false"|
+|[ssl-reject-handshake](#ssl-reject-handshake)|bool|"false"|
 
 ## add-headers
 
@@ -986,6 +989,10 @@ Adds custom configuration to the http section of the nginx configuration.
 
 Adds custom configuration to all the servers in the nginx configuration.
 
+## stream-snippet
+
+Adds custom configuration to the stream section of the nginx configuration.
+
 ## location-snippet
 
 Adds custom configuration to all the locations in the nginx configuration.
@@ -1060,6 +1067,10 @@ Enables or disables [buffering of a client request body](http://nginx.org/en/doc
 
 Sets the global value of redirects (301) to HTTPS if the server has a TLS certificate (defined in an Ingress rule).
 _**default:**_ "true"
+
+## force-ssl-redirect
+Sets the global value of redirects (308) to HTTPS if the server has a default TLS certificate (defined in extra-args).
+_**default:**_ "false"
 
 ## whitelist-source-range
 
@@ -1258,3 +1269,11 @@ that ingress-nginx includes. Refer to the link to learn more about `lua-resty-gl
 
 Set if the service's Cluster IP and port should be used instead of a list of all endpoints. This can be overwritten by an annotation on an Ingress rule.
 _**default:**_ "false"
+
+## ssl-reject-handshake
+
+Set to reject SSL handshake to an unknown virtualhost. This parameter helps to mitigate the fingerprinting using default certificate of ingress.
+_**default:**_ "false"
+
+_References:_
+[https://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_reject_handshake](https://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_reject_handshake)

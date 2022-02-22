@@ -388,6 +388,11 @@ type Configuration struct {
 	// https://www.igvita.com/2013/12/16/optimizing-nginx-tls-time-to-first-byte/
 	SSLBufferSize string `json:"ssl-buffer-size,omitempty"`
 
+	// https://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_reject_handshake
+	// If enabled, SSL handshakes to an invalid virtualhost will be rejected
+	// Default: false
+	SSLRejectHandshake bool `json:"ssl-reject-handshake"`
+
 	// Enables or disables the use of the PROXY protocol to receive client connection
 	// (real IP address) information passed through proxy servers and load balancers
 	// such as HAproxy and Amazon Elastic Load Balancer (ELB).
@@ -654,6 +659,9 @@ type Configuration struct {
 	// ServerSnippet adds custom configuration to all the servers in the nginx configuration
 	ServerSnippet string `json:"server-snippet"`
 
+	// StreamSnippet adds custom configuration to the stream section of the nginx configuration
+	StreamSnippet string `json:"stream-snippet"`
+
 	// LocationSnippet adds custom configuration to all the locations in the nginx configuration
 	LocationSnippet string `json:"location-snippet"`
 
@@ -838,6 +846,7 @@ func NewDefault() Configuration {
 		SSLECDHCurve:                     "auto",
 		SSLProtocols:                     sslProtocols,
 		SSLEarlyData:                     sslEarlyData,
+		SSLRejectHandshake:               false,
 		SSLSessionCache:                  true,
 		SSLSessionCacheSize:              sslSessionCacheSize,
 		SSLSessionTickets:                false,
@@ -950,10 +959,11 @@ type TemplateConfig struct {
 	MaxmindEditionFiles      *[]string
 	MonitorMaxBatchSize      int
 
-	PID        string
-	StatusPath string
-	StatusPort int
-	StreamPort int
+	PID            string
+	StatusPath     string
+	StatusPort     int
+	StreamPort     int
+	StreamSnippets []string
 }
 
 // ListenPorts describe the ports required to run the
