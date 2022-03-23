@@ -33,7 +33,7 @@ RUN apk update \
   && apk upgrade \
   && apk add -U --no-cache dumb-init
 
-# With UBI as base image
+# With OpenSUSE Leap DNF as base image
 FROM registry.opensuse.org/opensuse/leap-dnf:15.3
 
 ENV PATH=$PATH:/usr/local/luajit/bin:/usr/local/nginx/sbin:/usr/local/nginx/bin
