@@ -46,7 +46,6 @@ RUN if [ "$TARGETARCH" = "s390x" ] ; then dnf install -y \
      curl \
      openssl \
      ca-certificates \
-     tzdata \
      diffutils \
      util-linux ; else microdnf install bash \
      curl \
