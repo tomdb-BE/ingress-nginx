@@ -41,14 +41,19 @@ ENV LUA_PATH="/usr/local/share/luajit-2.1.0-beta3/?.lua;/usr/local/share/lua/5.1
 ENV LUA_CPATH="/usr/local/lib/lua/?/?.so;/usr/local/lib/lua/?.so;;"
 ENV PATH=$PATH:/usr/local/luajit/bin:/usr/local/nginx/sbin:/usr/local/nginx/bin
 
-RUN microdnf install -y \
+RUN if [ "$TARGETARCH" = "s390x" ] ; then dnf install -y \
      bash \
      curl \
      openssl \
      ca-certificates \
      tzdata \
      diffutils \
-     util-linux 
+     util-linux ; else microdnf install bash \
+     curl \
+     openssl \
+     ca-certificates \
+     tzdata \
+     diffutils; fi
 
 COPY --chown=www-data:www-data etc /chroot/etc
 
