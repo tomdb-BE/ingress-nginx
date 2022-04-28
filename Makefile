@@ -55,7 +55,7 @@ endif
 
 REGISTRY ?= gcr.io/k8s-staging-ingress-nginx
 
-BASE_IMAGE ?= rancher/nginx:ingress-v1.2.0-hardened
+BASE_IMAGE ?= tomdbbe/nginx:ingress-v1.2.0-hardened
 
 GOARCH=$(ARCH)
 
