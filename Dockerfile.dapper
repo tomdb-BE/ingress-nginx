@@ -1,4 +1,5 @@
-FROM rancher/hardened-build-base:v1.19.4b1
+ARG ORG=tomdbbe
+FROM ${ORG}/hardened-build-base:v1.20.3b1
 ARG STEP=ci
 ARG DAPPER_HOST_ARCH
 ARG DOCKER_USER
