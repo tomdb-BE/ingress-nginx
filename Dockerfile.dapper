@@ -1,5 +1,5 @@
-ARG ORG=rancher
-FROM ${ORG}/hardened-build-base:v1.20.3b1
+ARG REGISTRY=rancher
+FROM ${REGISTRY}/hardened-build-base:v1.20.3b1
 ARG STEP=ci
 ARG DAPPER_HOST_ARCH
 ARG DOCKER_USER

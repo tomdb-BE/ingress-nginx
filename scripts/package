@@ -13,7 +13,7 @@ if [[ -n "$GIT_TAG" ]] && [[ -z "$LOCAL" ]]; then
     # So we ignore the error and check the image exists
     TAG=${NGINX_TAG} make -C images/nginx push || true
     ARCH=$(which go >/dev/null 2>&1 && go env GOARCH)
-    docker image inspect rancher/nginx:${NGINX_TAG}-${ARCH}
+    docker image inspect ${REGISTRY/nginx:${NGINX_TAG}-${ARCH}
     make release-ingress-controller || true
 else
     TAG=${NGINX_TAG} make -C images/nginx build
